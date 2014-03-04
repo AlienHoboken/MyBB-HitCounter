@@ -1,5 +1,5 @@
 **********************
-* Hit Counter 1.1.2  *
+* Hit Counter 1.2    *
 * Jeremiah Johnson   *
 * http://jwjdev.com/ *
 **********************
