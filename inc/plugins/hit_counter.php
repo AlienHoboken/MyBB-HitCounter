@@ -248,13 +248,9 @@ function hit_counter_index_start()
    global $db,$mybb;
 
    if($mybb->settings['hit_counter_on']) { //if we are using hit counter
-      if($mybb->session->is_spider && !$mybb->settings['hit_counter_count_spiders']) { //don't count spider hits unless user wants them
-         return;
-      }
-      if($mybb->user['gid'] == 1 && $mybb->settings['hit_counter_registered_only']) { //don't count unregistered if the user doesn't want them counted
-         return;
-      }
-      if($mybb->settings['hit_counter_main_only']) { //only use this increment if we are doing main only hits
+      //if this is main only
+      //also dount count spiders or unregistered users unless specified to
+      if($mybb->settings['hit_counter_main_only'] && !(($mybb->session->is_spider && !$mybb->settings['hit_counter_count_spiders']) || ($mybb->user['gid'] == 1 && $mybb->settings['hit_counter_registered_only']))) {
          if($mybb->settings['hit_counter_unique_only']) {
             uniqueHit();
          } else { //just add the hit
@@ -270,13 +266,9 @@ function hit_counter_global_start()
    global $db,$mybb;
 
    if($mybb->settings['hit_counter_on']) { //if we are using hit counter
-      if($mybb->session->is_spider && !$mybb->settings['hit_counter_count_spiders']) { //don't count spider hits unless user wants them
-         return;
-      }
-      if($mybb->user['gid'] == 1 && $mybb->settings['hit_counter_registered_only']) { //don't count unregistered if the user doesn't want them counted
-         return;
-      }
-      if(!$mybb->settings['hit_counter_main_only']) { //only use this increment if we are doing non main site hits as well
+      //if this global hit counter
+      //also dount count spiders or unregistered users unless specified to
+      if(!$mybb->settings['hit_counter_main_only'] && !(($mybb->session->is_spider && !$mybb->settings['hit_counter_count_spiders']) || ($mybb->user['gid'] == 1 && $mybb->settings['hit_counter_registered_only']))) { //only use this increment if we are doing non main site hits as well
          if($mybb->settings['hit_counter_unique_only']) {
             uniqueHit();
          } else { //just add the hit
